@@ -1,0 +1,6 @@
+Options -Indexes
+
+RewriteEngine On
+RewriteRule ^([0-9a-f]{64})$ /cgi-bin/rsg.pl/?id=$1 [QSA,L]
+RewriteRule ^([a-z]+)$ /cgi-bin/rsg.pl/?action=$1 [QSA,L]
+RewriteRule ^$ cgi-bin/rsg.pl [QSA,L,PT]
