@@ -811,10 +811,11 @@ button:hover, .button:hover {opacity: 0.8;}
 }
 
 .commentText {
+    word-wrap: break-word;
     padding: 10px;
     background-color: #ebf7f9;
     font-size: 20px;
-    white-space: pre;
+    /* white-space: pre; */
 }
 
 .valueWarning {

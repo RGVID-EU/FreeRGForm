@@ -5,6 +5,10 @@ var closestInput = '';
 var elements = '';
 var clickedLogo = '';
 
+// "v":"󸣆",
+// "V":"󸣡",
+
+
 var shortcut = {
     "1":"󸣶",
     "2":"󸣷",
@@ -53,8 +57,7 @@ var shortcut = {
     "w":"󸣫",
     "W":"󸣫",
     "Q":"󸣣",
-    "v":"󸣆",
-    "V":"󸣡",
+
     "b":"󸣔",
     "B":"󸣔",
 
@@ -102,6 +105,42 @@ var inputToCount = /^(\d\.\d\+)+\d\.\d$/;
 RegExp.escape= function(s) {
     return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 };
+
+function saveForm(pdf) {
+    var allInputs = $('#allInputs').find('input, select, radio').serialize();
+    // var id = $( "input[name='formId']" ).val();
+    // window.location.href = "../" + id + "?pdf=1" ;
+    $.ajax({
+	method: "POST",
+	url: "../cgi-bin/save.pl",
+	data: allInputs,
+	success: function(msg){
+	    var formLink = window.location.origin +'?id=' + msg;
+	    // $("#msgFromServer").html("Please save this link if you want to be able to edit this form in the future: <a href=" + formLink + ">" + formLink+ "</a>");
+	    $('#formIdHeading').css("visibility","visible");
+	    if (msg.indexOf('Error') == -1 && msg.indexOf('error') == -1) {
+		$('#formIdHeading').css("color","#0d0d0d");
+		$('#formId').val(msg);
+		$('#formIdHeading').html("Form id: " + "<a class='link' href=../" + msg + ">" + msg + "</a>");
+		$('#saveStatus').css({"visibility":"visible", "opacity":"1"});
+		window.history.pushState("string", "Title", "../" + msg);
+
+		if (pdf == 1) {
+
+		    var id = $( "input[name='formId']" ).val();
+		    window.location.href = "../" + id + "?pdf=1" ;
+
+		}
+
+	    } else {
+		$('#formIdHeading').css("color","#e60000");
+		$('#formIdHeading').html(msg);
+	    }
+	},
+	error: function(XMLHttpRequest, textStatus, errorThrown) {
+	}
+    });
+}
 
 function countTotalValue(totalValue) {
     if (isNaN(totalValue)) {
@@ -298,9 +337,7 @@ $(document).ready(function(){
     });
 
     $("#pdfBtn").click(function(event) {
-	$( "#saveBtn" ).trigger( "click" );
-	var id = $( "input[name='formId']" ).val();
-	window.location.href = "../" + id + "?pdf=1" ;
+	saveForm(1);
     });
 
     $("#printBtn").click(function(event) {
@@ -346,31 +383,9 @@ $(document).ready(function(){
     );
 
     $("#saveBtn").click(function() {
+	// alert('saved');
 	$('#saveStatus').css({"opacity":"0"});
-	var allInputs = $('#allInputs').find('input, select, radio').serialize();
-	$.ajax({
-	    method: "POST",
-	    url: "../cgi-bin/save.pl",
-	    data: allInputs,
-	    success: function(msg){
-		var formLink = window.location.origin +'?id=' + msg;
-		// $("#msgFromServer").html("Please save this link if you want to be able to edit this form in the future: <a href=" + formLink + ">" + formLink+ "</a>");
-		$('#formIdHeading').css("visibility","visible");
-		if (msg.indexOf('Error') == -1 && msg.indexOf('error') == -1) {
-		    $('#formIdHeading').css("color","#0d0d0d");
-		    $('#formId').val(msg);
-		    $('#formIdHeading').html("Form id: " + "<a class='link' href=../" + msg + ">" + msg + "</a>");
-		    $('#saveStatus').css({"visibility":"visible", "opacity":"1"});
-		    window.history.pushState("string", "Title", "../" + msg);
-		} else {
-		    $('#formIdHeading').css("color","#e60000");
-		    $('#formIdHeading').html(msg);
-		}
-	    },
-	    error: function(XMLHttpRequest, textStatus, errorThrown) {
-	    }
-	});
-
+	saveForm(0);
     });
 
     $("#cloneBtn").click(function() {

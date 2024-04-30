@@ -1115,6 +1115,8 @@ sub printAllInputsForm {
     print $h->open('div', {id => 'magicButtons'});
     if ( canEdit() || $formId eq '') {
 	print $h->button({id => 'saveBtn', class => '', accesskey => 's'}, 'SAVE');
+        ## TODO!!!
+       ##print $h->button({id => 'cloneBtn', class => ''}, 'CLONE');
     } else {
 	print $h->button({id => 'cloneBtn', class => ''}, 'CLONE');
     }
