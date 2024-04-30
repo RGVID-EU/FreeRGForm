@@ -280,7 +280,7 @@ if (getParam('pdf')) {
 
 print "<!DOCTYPE html>";
 print $h->open('html');
-my $htdocs = getParam('pdf') ? '../../htdocs' : ''; # TODO why current dir is data/tmp ?
+my $htdocs = getParam('pdf') ? 'https://freergform.rgvid.eu' : ''; # TODO determine the path automatically?
 print $h->head([ $h->title( showNameInTitle() || 'Rhythmic gymnastics individual routine scripting' ),
 		 $h->link({ href =>  "$htdocs/css/w3.css", rel=>'stylesheet', type => 'text/css' }),
 		 $h->link({ href =>  "$htdocs/css/my.css", rel=>'stylesheet', type => 'text/css' }),

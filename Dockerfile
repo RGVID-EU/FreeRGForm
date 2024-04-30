@@ -2,7 +2,7 @@ FROM httpd:2.4.59
 
 RUN apt-get update
 RUN apt-get install -y libcgi-pm-perl libcapture-tiny-perl libdatetime-perl libcapture-tiny-perl libgeo-ip-perl
-RUN apt-get install -y libhtml-tiny-perl libjson-xs-perl libcrypt-random-seed-perl
+RUN apt-get install -y libhtml-tiny-perl libjson-xs-perl libcrypt-random-seed-perl wkhtmltopdf
 
 COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf-extra
 RUN cat /usr/local/apache2/conf/httpd.conf-extra >> /usr/local/apache2/conf/httpd.conf
