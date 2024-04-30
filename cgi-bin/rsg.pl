@@ -22,7 +22,7 @@ use File::Temp qw(tempfile tempdir mktemp);
 use File::Copy 'mv';
 use Time::HiRes qw(time);
 
-my $mainFolder = '../data';
+my $mainFolder = '/srv/data';
 my $formsFolder = "$mainFolder/forms";
 my $lock = "$mainFolder/lockFolder";
 my $tmpFolder = "$mainFolder/tmp";

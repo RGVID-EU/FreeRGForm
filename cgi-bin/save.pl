@@ -17,7 +17,7 @@ use CGI::Cookie;
 my $q = CGI->new;
 my $coder = JSON::XS->new->pretty;
 my $random = Crypt::Random::Seed->new(NonBlocking => 1) // die "No random sources exist";
-my $mainFolder = '../data';
+my $mainFolder = '/srv/data';
 my $formsFolder = "$mainFolder/forms";
 my $tmpFolder = "$mainFolder/tmp";
 my $nowString = localtime;
